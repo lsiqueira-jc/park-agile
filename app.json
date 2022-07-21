@@ -3,8 +3,8 @@
     "name": "park-agile",
     "slug": "park-agile",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"],
+    "description": "App para vagas de estacionamento",
+    "githubUrl": "https://github.com/alexiakattah/park-agile"
   }
 }

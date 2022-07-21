@@ -12,9 +12,7 @@ export function Button({ ...rest }) {
         bg: 'primary.500',
       }}
     >
-      <Heading color={'white'} fontSize={'sm'}>
-        {rest.text}
-      </Heading>
+      {rest.text}
     </NativeBaseButton>
   );
 }
