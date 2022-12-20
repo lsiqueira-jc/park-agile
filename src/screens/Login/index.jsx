@@ -1,14 +1,61 @@
-import { VStack, Heading, Image, Text, Flex, Icon } from 'native-base';
-import Logo from '../../assets/logo.png';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
-import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
+import { AntDesign } from '@expo/vector-icons';
+import { Flex, Heading, Icon, Image, Text, VStack } from 'native-base';
 import { useState } from 'react';
+import Logo from '../../assets/logo.png';
+import { Button } from '../../components/Button';
+import { Input } from '../../components/Input';
+import { auth } from '../../firebase';
+import { useAuth } from '../../hooks/useAuth';
 export function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  function handleSignIn() {}
+  const { setUser } = useAuth();
+  async function loginUser() {
+    return new Promise(async (resolve, reject) => {
+      console.log(email, password);
+
+      try {
+        const responseUserAuth = await auth.doSignInWithEmailAndPassword(
+          email,
+          password,
+        );
+        console.log(
+          '🚀 ~ file: index.jsx:22 ~ returnnewPromise ~ responseUserAuth',
+          responseUserAuth,
+        );
+
+        if (responseUserAuth.success) {
+          if (!responseUserAuth) {
+            alert('Email ou senha incorreto.');
+            return;
+          }
+          setUser(responseUserAuth.data);
+          return;
+        } else {
+          console.log('erroo-->', responseUserAuth);
+        }
+      } catch (error) {
+        let errorMsg = '';
+        if (error.code === 'auth/wrong-password') {
+          errorMsg = 'E-mail ou senha incorretos.';
+        } else if (
+          error.code === 'auth/account-exists-with-different-credential'
+        ) {
+          errorMsg = 'Já existe uma conta com o e-mail informado.';
+        } else if (
+          error.message ===
+          'Você não está autorizado a fazer login nesse momento. Contate o administrador para mais informações.'
+        ) {
+          errorMsg = 'E-mail não cadastrado para este cliente.';
+        } else {
+          errorMsg = 'E-mail ou senha incorretos.';
+        }
+
+        alert(errorMsg);
+      }
+    });
+  }
   return (
     <VStack flex={1} alignItems="center" bg="gray.700" px={8} pt={24}>
       <Image source={Logo} />
@@ -32,7 +79,7 @@ export function Login() {
         _text={{
           color: 'white',
         }}
-        onPress={handleSignIn}
+        onPress={loginUser}
       />
       <Text color={'white'} alignItems={'center'} mt={10}>
         ou
@@ -53,7 +100,7 @@ export function Login() {
         _text={{
           color: 'black',
         }}
-        onPress={handleSignIn}
+        onPress={loginUser}
       />
     </VStack>
   );

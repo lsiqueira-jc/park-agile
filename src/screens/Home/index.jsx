@@ -1,11 +1,9 @@
-import { HStack, VStack, Image, IconButton, Icon, Heading } from 'native-base';
+import { Icon, Image, VStack } from 'native-base';
 
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import Wifi from '../../assets/wifi.png';
-import Logo from '../../assets/logo.png';
-import { Input } from '../../components/Input';
+import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import Wifi from '../../assets/wifi.png';
+import { Input } from '../../components/Input';
 
 import { Button } from '../../components/Button';
 export function Home({ navigation }) {
