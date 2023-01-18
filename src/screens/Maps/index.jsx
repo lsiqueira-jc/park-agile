@@ -1,14 +1,12 @@
-import { Icon, ScrollView, VStack } from 'native-base';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
-import { GoogleAutoComplete } from '../GoogleAutoComplete';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { VStack } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { Text } from 'react-native';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { GoogleAutoComplete } from '../../components/GoogleAutoComplete';
 
-import { Button } from '../Button';
+import { Button } from '../../components/Button';
 export function Maps({ navigation }) {
   const [location, setLocation] = useState({});
   const [errorMsg, setErrorMsg] = useState(null);
@@ -23,10 +21,15 @@ export function Maps({ navigation }) {
   useEffect(() => {
     const getLocationAsync = async () => {
       // let { status } = await Location.getForegroundPermissionsAsync();
-      let { status } = await Permissions.askAsync(
-        Permissions.LOCATION_FOREGROUND,
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      // let { status } = await Permissions.askAsync(
+      //   Permissions.LOCATION_FOREGROUND,
+      // );
+      console.log(
+        '🚀 ~ file: index.jsx:28 ~ getLocationAsync ~ status',
+        status,
       );
-      if ('granted' !== status) {
+      if (status !== 'granted') {
         setLocation('Permission to access location was denied');
       } else {
         setLocationPermission(true);
@@ -81,7 +84,7 @@ export function Maps({ navigation }) {
 
   return (
     <VStack flex={1} alignItems="center" bg="gray.700" px={8} pt={4}>
-      <VStack flex={1} width="full" zIndex={9}>
+      <VStack flex={1} width="full" zIndex={9999}>
         <GoogleAutoComplete notifyChange={(loc) => getCoordsFromName(loc)} />
       </VStack>
       <MapView
@@ -101,7 +104,7 @@ export function Maps({ navigation }) {
         followsUserLocation={true}
         showsTraffic={true}
         minZoomLevel={19}
-        maxZoomLevel={15}
+        maxZoomLevel={20}
         onRegionChange={(reg) => onMapRegionChange(reg)}
       >
         {mapRegion ? (
@@ -111,16 +114,16 @@ export function Maps({ navigation }) {
         ) : (
           <Text>erro</Text>
         )}
-        {/* <Marker
+        <Marker
           coordinate={mapRegion}
           title="Marker"
           identifier="vehiclePosition"
-          />
-          <Marker
+        />
+        <Marker
           coordinate={location}
           title="Marker"
           identifier="restaurantPosition"
-        /> */}
+        />
       </MapView>
       <Button
         text="Salvar"

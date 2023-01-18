@@ -13,8 +13,6 @@ export function Login() {
   const { setUser } = useAuth();
   async function loginUser() {
     return new Promise(async (resolve, reject) => {
-      console.log(email, password);
-
       try {
         const responseUserAuth = await auth.doSignInWithEmailAndPassword(
           email,

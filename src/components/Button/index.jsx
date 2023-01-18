@@ -1,7 +1,6 @@
-import { Button as NativeBaseButton, Heading, Text } from 'native-base';
+import { Button as NativeBaseButton } from 'native-base';
 
 export function Button({ ...rest }) {
-  console.log('rest', rest);
   return (
     <NativeBaseButton
       {...rest}

@@ -2,8 +2,9 @@ import { Entypo, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'native-base';
-import { Maps } from '../components/Maps';
 import { Home } from '../screens/Home';
+import { Maps } from '../screens/Maps';
+import { Profile } from '../screens/Profile';
 const HomeStack = createNativeStackNavigator();
 const LoginStack = createNativeStackNavigator();
 const HomeTabs = createBottomTabNavigator();
@@ -28,7 +29,7 @@ export function AppRoutes() {
         headerShown: false,
       })}
     >
-      <ProfileStack.Screen name="Profile" component={Home} />
+      <ProfileStack.Screen name="Profile" component={Profile} />
     </ProfileStack.Navigator>
   );
   const HomeTabNavigator = () => (
@@ -56,7 +57,6 @@ export function AppRoutes() {
 
         scrollEnabled: true,
         tabBarIcon: ({ focused, color, size }) => {
-          console.log('focused', focused, color, size, route);
           let iconName;
 
           if (route.name === 'Início') {
