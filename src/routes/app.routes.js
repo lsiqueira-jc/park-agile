@@ -2,6 +2,7 @@ import { Entypo, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'native-base';
+import { ConfirmReserv } from '../screens/ConfirmReserv';
 import { Home } from '../screens/Home';
 import { Maps } from '../screens/Maps';
 import { Profile } from '../screens/Profile';
@@ -20,6 +21,7 @@ export function AppRoutes() {
     >
       <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="Maps" component={Maps} />
+      <HomeStack.Screen name="ConfirmReserv" component={ConfirmReserv} />
     </HomeStack.Navigator>
   );
 

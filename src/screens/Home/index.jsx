@@ -95,10 +95,9 @@ export function Home({ navigation }) {
   const updateLocation = (data, details = null) => {
     setOrigin(details.geometry);
   };
-  console.log('origin', origin);
 
   return (
-    <VStack flex={1} alignItems="center" bg="gray.700" px={8} pt={4}>
+    <VStack alignItems="center" bg="gray.700" px={8} pt={4} flex={1}>
       {/* <HStack
         w="full"
         justifyContent="space-between"
@@ -115,12 +114,62 @@ export function Home({ navigation }) {
 
       <GooglePlacesAutocomplete
         placeholder="Origem"
-        onPress={(data, details = null) => setOrigin(details)}
+        fetchDetails={true}
+        onPress={(data, details = null) => setOrigin(details.geometry)}
         query={{
           key: 'AIzaSyBVSjEIPkYunZfECcv8v4kXiI1ya1CppMo',
           language: 'pt-BR', // idioma
         }}
         styles={{
+          textInputContainer: {
+            backgroundColor: 'rgba(0,0,0,0)',
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
+            zIndex: 9999,
+            width: '90%',
+          },
+          listView: {
+            top: 45.5,
+            zIndex: 11,
+            position: 'absolute',
+            color: 'black',
+            backgroundColor: 'white',
+          },
+          separator: {
+            flex: 1,
+            height: 2,
+            backgroundColor: 'blue',
+          },
+          textInput: {
+            marginLeft: 0,
+            marginRight: 0,
+            height: 45,
+            color: '#5d5d5d',
+            fontSize: 16,
+            borderWidth: 1,
+            zIndex: 9999,
+          },
+          predefinedPlacesDescription: {
+            color: '#1faadb',
+          },
+          listView: {
+            top: 45.5,
+            zIndex: 11,
+            position: 'absolute',
+            color: 'black',
+            backgroundColor: 'white',
+          },
+          separator: {
+            flex: 1,
+            height: 2,
+            backgroundColor: 'blue',
+          },
+          description: {
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            fontSize: 14,
+            maxWidth: '89%',
+          },
           textInputContainer: {
             width: '100%',
             backgroundColor: '#FFF',
@@ -131,36 +180,102 @@ export function Home({ navigation }) {
           },
         }}
       />
-
-      <GooglePlacesAutocomplete
-        placeholder="Destino"
-        onPress={(data, details = null) => setDestination(details)}
-        query={{
-          key: 'AIzaSyBVSjEIPkYunZfECcv8v4kXiI1ya1CppMo',
-          language: 'pt-BR', // idioma
-        }}
-        styles={{
-          textInputContainer: {
-            width: '100%',
-            backgroundColor: '#FFF',
-          },
-          textInput: {
-            height: 44,
-            color: '#000',
-          },
-        }}
-      />
-
+      <VStack flex={1} width="100%" bottom={'20%'}>
+        <GooglePlacesAutocomplete
+          placeholder="Destino"
+          fetchDetails={true}
+          onPress={(data, details = null) => setDestination(details.geometry)}
+          query={{
+            key: 'AIzaSyBVSjEIPkYunZfECcv8v4kXiI1ya1CppMo',
+            language: 'pt-BR', // idioma
+          }}
+          autocompletionRequest={{
+            bounds: [
+              { lat: 50, lng: 50 },
+              { lat: 100, lng: 100 },
+            ],
+            componentRestrictions: {
+              country: ['us', 'ca', 'uy'],
+            },
+          }}
+          debounce={200}
+          styles={{
+            textInputContainer: {
+              backgroundColor: 'rgba(0,0,0,0)',
+              borderTopWidth: 0,
+              borderBottomWidth: 0,
+              zIndex: 999,
+              width: '90%',
+            },
+            listView: {
+              top: 45.5,
+              zIndex: 10,
+              position: 'absolute',
+              color: 'black',
+              backgroundColor: 'white',
+            },
+            separator: {
+              flex: 1,
+              height: 2,
+              backgroundColor: 'blue',
+            },
+            textInput: {
+              marginLeft: 0,
+              marginRight: 0,
+              height: 45,
+              color: '#5d5d5d',
+              fontSize: 16,
+              borderWidth: 1,
+              zIndex: 999,
+            },
+            predefinedPlacesDescription: {
+              color: '#1faadb',
+            },
+            listView: {
+              top: 45.5,
+              zIndex: 10,
+              position: 'absolute',
+              color: 'black',
+              backgroundColor: 'white',
+            },
+            separator: {
+              flex: 1,
+              height: 2,
+              backgroundColor: 'blue',
+            },
+            description: {
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              fontSize: 14,
+              maxWidth: '89%',
+            },
+            textInputContainer: {
+              width: '100%',
+              backgroundColor: '#FFF',
+            },
+            textInput: {
+              height: 44,
+              color: '#000',
+            },
+          }}
+        />
+      </VStack>
       <Button
-        text="Endereço atual"
+        text="Endereço atu"
         bg={'gray.500'}
         _text={{
           color: 'gray.200',
         }}
         justifyContent="space-between"
-        mt={60}
+        mt={2}
+        bottom={'50%'}
         // startIcon={<Icon as={Ionicons} name="location" size="md" />}
-        onPress={() => navigation.navigate('Maps')}
+        onPress={() =>
+          navigation.navigate('Maps', {
+            origin: origin,
+            destination: destination,
+          })
+        }
       />
       {/* <Button
         text="Endereço de destino"
