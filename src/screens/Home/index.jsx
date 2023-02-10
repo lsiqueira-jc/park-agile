@@ -112,7 +112,7 @@ export function Home({ navigation }) {
       </HStack> */}
       <Image source={Wifi} />
 
-      <GooglePlacesAutocomplete
+      {/* <GooglePlacesAutocomplete
         placeholder="Origem"
         fetchDetails={true}
         onPress={(data, details = null) => setOrigin(details.geometry)}
@@ -179,8 +179,8 @@ export function Home({ navigation }) {
             color: '#000',
           },
         }}
-      />
-      <VStack flex={1} width="100%" bottom={'20%'}>
+      /> */}
+      <VStack flex={1} width="100%" bottom={'0'}>
         <GooglePlacesAutocomplete
           placeholder="Destino"
           fetchDetails={true}
@@ -261,13 +261,14 @@ export function Home({ navigation }) {
         />
       </VStack>
       <Button
-        text="Endereço atu"
-        bg={'gray.500'}
+        text="Buscar estacionamentos"
+        bg={'primary.700'}
         _text={{
           color: 'gray.200',
         }}
-        justifyContent="space-between"
-        mt={2}
+        justifyContent="center"
+        fontSize={20}
+        mt={0}
         bottom={'50%'}
         // startIcon={<Icon as={Ionicons} name="location" size="md" />}
         onPress={() =>
