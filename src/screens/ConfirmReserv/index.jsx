@@ -1,5 +1,4 @@
 import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
-
 import {
   Box,
   Button,
@@ -12,11 +11,14 @@ import {
   Text,
   VStack,
 } from 'native-base';
+import { Alert, Modal, StyleSheet, View } from 'react-native';
 
 import React, { useState } from 'react';
 import mastercard from '../../assets/mastercard.png';
 import { Button as ButtonComponent } from '../../components/Button';
 export function ConfirmReserv({ route, navigation }) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const hours = [
     {
       hours: '1-2',
@@ -35,6 +37,44 @@ export function ConfirmReserv({ route, navigation }) {
   const [hoursState, setHours] = useState(hours[0]);
   return (
     <VStack bg="gray.700" px={8} pt={1} flex={1} pb={10}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text color="white" fontSize={20}>
+              Reserva realizada com sucesso!
+            </Text>
+            <Text color="secondary.700" fontSize={18}>
+              Cabine - B102{' '}
+            </Text>
+            <Text color="white" fontSize={16} mt={6}>
+              Sua reserva, ficará disponível até 30 minutos depois do horário
+              reservado. Clique em OK, quando o automóvel estiver estacionado.
+            </Text>
+            <ButtonComponent
+              text={'Ok'}
+              color="#FBA94C"
+              mb={0}
+              mt={'120%'}
+              backgroundColor="#FBA94C"
+              _text={{
+                fontSize: 18,
+                fontWeight: 'fonts.heading',
+              }}
+              onPress={() => {
+                setModalVisible(!modalVisible), navigation.navigate('Home', {});
+              }}
+            />
+          </View>
+        </View>
+      </Modal>
       <ScrollView w={'full'} h="full">
         <VStack flex={1}>
           <Icon type="FontAwesome" name="back" color="white" />
@@ -328,10 +368,55 @@ export function ConfirmReserv({ route, navigation }) {
               fontSize: 18,
               fontWeight: 'fonts.heading',
             }}
-            onPress={() => {}}
+            onPress={() => setModalVisible(!modalVisible)}
           />
         </VStack>
       </ScrollView>
     </VStack>
   );
 }
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: '#262626',
+    borderRadius: 20,
+    padding: 35,
+    zIndex: 0,
+    width: '100%',
+    height: '80%',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+
+  buttonClose: {
+    backgroundColor: '#5e5ce5',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+});

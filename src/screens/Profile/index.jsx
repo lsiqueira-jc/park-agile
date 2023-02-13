@@ -1,18 +1,14 @@
 import { Text, VStack } from 'native-base';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Input } from '../../components/Input';
 
-import { api } from '../../api';
 import { Button } from '../../components/Button';
 import { useAuth } from '../../hooks/useAuth';
 export function Profile({ navigation }) {
   const [userData, setUserData] = useState({});
   const { user } = useAuth();
-
-  useEffect(() => {
-    api.post;
-  }, []);
+  console.log('🚀 ~ file: index.jsx:12 ~ Profile ~ user', user);
 
   return (
     <VStack flex={1} alignItems="center" bg="gray.700" px={8} pt={4}>

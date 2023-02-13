@@ -3,6 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from 'native-base';
 import { ConfirmReserv } from '../screens/ConfirmReserv';
+import { Cupons } from '../screens/Cupons';
+import { CuponsList } from '../screens/CuponsList';
 import { Home } from '../screens/Home';
 import { Maps } from '../screens/Maps';
 import { Profile } from '../screens/Profile';
@@ -10,6 +12,7 @@ const HomeStack = createNativeStackNavigator();
 const LoginStack = createNativeStackNavigator();
 const HomeTabs = createBottomTabNavigator();
 const ProfileStack = createNativeStackNavigator();
+const CuponsStack = createNativeStackNavigator();
 const AppStack = createNativeStackNavigator();
 export function AppRoutes() {
   const theme = useTheme();
@@ -33,6 +36,16 @@ export function AppRoutes() {
     >
       <ProfileStack.Screen name="Profile" component={Profile} />
     </ProfileStack.Navigator>
+  );
+  const CuponsStackNavigator = () => (
+    <CuponsStack.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+      })}
+    >
+      <CuponsStack.Screen name="CuponsList" component={CuponsList} />
+      <CuponsStack.Screen name="Cupons" component={Cupons} />
+    </CuponsStack.Navigator>
   );
   const HomeTabNavigator = () => (
     <HomeTabs.Navigator
@@ -84,7 +97,7 @@ export function AppRoutes() {
             />
           ),
         })}
-        component={ProfileStackNavigator}
+        component={CuponsStackNavigator}
       />
       <HomeTabs.Screen
         name="Carteira"

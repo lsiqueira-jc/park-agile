@@ -31,6 +31,10 @@ export function AuthContextProvider(props) {
         const userRef = await (
           await db.getSigninClient(firebaseUser.uid)
         ).val();
+        console.log(
+          '🚀 ~ file: AuthContext.js:34 ~ firebase.auth.onAuthStateChanged ~ userRef',
+          userRef,
+        );
         if (userRef) {
           setUser(userRef);
         }

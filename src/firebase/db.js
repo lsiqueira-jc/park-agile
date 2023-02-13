@@ -1,6 +1,7 @@
 import { db } from './firebase';
 
 export const getSigninClient = (userId) => {
+  console.log('🚀 ~ file: db.js:4 ~ getSigninClient ~ userId', userId);
   return db.ref(`Users/${userId}`).once('value');
 };
 
