@@ -199,7 +199,7 @@ export function CuponsList({ route, navigation }) {
           fontWeight: 'fonts.heading',
         }}
         onPress={() => {
-          setModalVisible(!modalVisible), navigation.navigate('Home', {});
+          setModalVisible(!modalVisible), navigation.navigate('Cupons');
         }}
       />
     </VStack>
