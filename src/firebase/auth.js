@@ -16,21 +16,25 @@ export function doSignInWithEmailAndPassword(email, password) {
   return new Promise(async (resolve, reject) => {
     try {
       const { user } = await auth.signInWithEmailAndPassword(email, password);
+      console.log('🚀 ~ file: auth.js:19 ~ returnnewPromise ~ user', user);
 
       if (!user) {
-        resolve({
+        return resolve({
           code: 200,
           message: 'E-mail e/ou senha não informados!',
           success: false,
           data: undefined,
         });
-        return;
       }
 
       const userSnapshot = await db
         .ref(`Users/${user.uid}`)
         .once('value')
         .then((userSnapshot) => userSnapshot.val());
+      console.log(
+        '🚀 ~ file: auth.js:35 ~ returnnewPromise ~ userSnapshot',
+        userSnapshot,
+      );
 
       if (userSnapshot) {
         return resolve({

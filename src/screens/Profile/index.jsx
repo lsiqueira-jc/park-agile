@@ -7,7 +7,7 @@ import { Button } from '../../components/Button';
 import { useAuth } from '../../hooks/useAuth';
 export function Profile({ navigation }) {
   const [userData, setUserData] = useState({});
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   console.log('🚀 ~ file: index.jsx:12 ~ Profile ~ user', user);
 
   return (
@@ -61,6 +61,10 @@ export function Profile({ navigation }) {
         }}
         justifyContent="space-between"
         mt={6}
+        onPress={() => {
+          signOut();
+          navigation.navigate('Login');
+        }}
       />
     </VStack>
   );

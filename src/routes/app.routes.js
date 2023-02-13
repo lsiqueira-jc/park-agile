@@ -6,6 +6,7 @@ import { ConfirmReserv } from '../screens/ConfirmReserv';
 import { Cupons } from '../screens/Cupons';
 import { CuponsList } from '../screens/CuponsList';
 import { Home } from '../screens/Home';
+import { Login } from '../screens/Login';
 import { Maps } from '../screens/Maps';
 import { Profile } from '../screens/Profile';
 const HomeStack = createNativeStackNavigator();
@@ -19,7 +20,7 @@ export function AppRoutes() {
   const HomeStackNavigator = () => (
     <HomeStack.Navigator
       screenOptions={({ route }) => ({
-        headerShown: true,
+        headerShown: false,
       })}
     >
       <HomeStack.Screen name="Home" component={Home} />
@@ -35,6 +36,7 @@ export function AppRoutes() {
       })}
     >
       <ProfileStack.Screen name="Profile" component={Profile} />
+      <AppStack.Screen name="Login" component={Login} />
     </ProfileStack.Navigator>
   );
   const CuponsStackNavigator = () => (

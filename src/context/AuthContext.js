@@ -237,8 +237,7 @@ export function AuthContextProvider(props) {
     setUser({});
     console.log('clicou em sairr');
     auth.doSignOut().then(() => {
-      console.log('deu certo');
-      // navigation.navigate('Signin')
+      setUser({});
     });
   }
 
@@ -259,6 +258,7 @@ export function AuthContextProvider(props) {
         setDataUser,
         registerUserCavalo,
         updateUser,
+        setUser,
         getDataUser,
       }}
     >

@@ -23,7 +23,7 @@ export function Login() {
           responseUserAuth,
         );
 
-        if (responseUserAuth.success) {
+        if (responseUserAuth && responseUserAuth.code === 200) {
           if (!responseUserAuth) {
             alert('Email ou senha incorreto.');
             return;
@@ -34,6 +34,10 @@ export function Login() {
           console.log('erroo-->', responseUserAuth);
         }
       } catch (error) {
+        console.log(
+          '🚀 ~ file: index.jsx:37 ~ returnnewPromise ~ error',
+          error,
+        );
         let errorMsg = '';
         if (error.code === 'auth/wrong-password') {
           errorMsg = 'E-mail ou senha incorretos.';
